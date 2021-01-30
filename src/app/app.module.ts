@@ -7,14 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-
-import { ProductList } from './Products/productlist.component';
+import { AlertComponent } from './alert/alert.component';
+import { ProductList } from './Products/productlist/productlist.component';
+import { ProductDetailComponent } from './Products/productDetail/product-detail.component';
+import { Product } from './Products/product/product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductList, 
-    
+    AlertComponent,
+    ProductList,
+    ProductDetailComponent,
+    Product
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,7 @@ import { ProductList } from './Products/productlist.component';
     HttpClientModule
   ],
   providers: [],
-  exports: [ProductList],
+  //exports: [ProductList],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

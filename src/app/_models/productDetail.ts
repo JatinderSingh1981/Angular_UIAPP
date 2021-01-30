@@ -3,9 +3,10 @@ export interface ProductDetail {
     productMasterId: number,
     propertyName: string,
     propertyValue: string,
+    lookupPropertyValue: string,
     propertyTypeId: number,
     propertyType: string,
-    lookUpSourceId: string,
+    lookUpSourceId: number,
     lookUpSource: string
   }
   

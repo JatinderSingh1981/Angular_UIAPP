@@ -7,7 +7,7 @@ import { ProductMaster } from '../../_models/productMaster';
 import { ProductService } from '../../_services/product.service';
 
 @Component(
-    { selector: 'app-product', 
+    { selector: 'app-productlist', 
     templateUrl: './productlist.component.html', 
     providers: [ProductService, DecimalPipe] 
 })
