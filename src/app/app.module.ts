@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
-import { Products } from '../app/Products/products';
+import { ProductList } from './Products/productlist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Products, 
+    ProductList, 
     
   ],
   imports: [
@@ -26,7 +26,7 @@ import { Products } from '../app/Products/products';
     HttpClientModule
   ],
   providers: [],
-  exports: [Products],
+  exports: [ProductList],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

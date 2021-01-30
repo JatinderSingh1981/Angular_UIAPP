@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "RhipeApp": {
+    "AngularUIApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/RhipeApp",
+            "outputPath": "dist/AngularUIApp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "RhipeApp:build"
+            "browserTarget": "AngularUIApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "RhipeApp:build:production"
+              "browserTarget": "AngularUIApp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "RhipeApp:build"
+            "browserTarget": "AngularUIApp:build"
           }
         },
         "test": {
@@ -116,16 +116,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "RhipeApp:serve"
+            "devServerTarget": "AngularUIApp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "RhipeApp:serve:production"
+              "devServerTarget": "AngularUIApp:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "RhipeApp"
+  "defaultProject": "AngularUIApp"
 }

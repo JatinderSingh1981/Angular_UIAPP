@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\Rhipe_Test\RhipeBitBucket\RhipeApp\src\polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! E:\Test_Apps\UI_App\src\polyfills.ts */"hN/g");
 
 
 /***/ }),

@@ -1,0 +1,53 @@
+Product Component
+<div class="container-fluid py-5 px-5">
+    <table class="table table-striped">
+        <tbody>
+            <tr *ngFor="let product of products$">
+                <td class="row my-0 mx-0">
+                    <div class="col-lg-2 font-weight-bold">
+                        Product Type
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.computerType}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Processor
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.processor}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Brand
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.brand}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Number of Ports
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.usbPorts}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Ram Slots
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.ramSlots}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Quantity
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.quantity}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Description 
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.description}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

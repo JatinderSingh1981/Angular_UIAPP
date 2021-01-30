@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:44325/api/v1'
+  productApiUrl: 'https://localhost:44325/api/v1/product',
+  enumApiUrl: 'https://localhost:44325/api/v1/enum'
 };
 
 /*

@@ -3,28 +3,28 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { Product } from '../../_models/product';
+import { ProductMaster } from '../../_models/productMaster';
 import { ProductService } from '../../_services/product.service';
 
 @Component(
     { selector: 'app-product', 
-    templateUrl: './products.html', 
+    templateUrl: './productlist.component.html', 
     providers: [ProductService, DecimalPipe] 
 })
-export class Products implements OnInit {
-    products$: Product[] = [];
+export class ProductList implements OnInit {
+    products$: ProductMaster[] = [];
 
     constructor(public service: ProductService) {
     }
     
     ngOnInit(): void {
-        this.getProducts();
+        this.getProductList();
     }
 
-    getProducts() {
-        this.service.getAllProducts()
+    getProductList() {
+        this.service.getProductList()
             .subscribe((result) => {
-                this.products$ = JSON.parse(result).Products;
+                this.products$ = result.productList;
             });
     }
 }
