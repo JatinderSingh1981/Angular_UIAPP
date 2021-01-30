@@ -1,0 +1,28 @@
+<div class="container-fluid py-5 px-5">
+    <table class="table table-striped">
+        <tbody>
+            <tr *ngFor="let product of products$">
+                <td class="row my-0 mx-0">
+                    <div class="col-lg-2 font-weight-bold">
+                        Name
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.Name}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Price
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.ProductPrice}}
+                    </div>
+                    <div class="col-lg-2 font-weight-bold">
+                        Description
+                    </div>
+                    <div class="col-lg-10">
+                        {{product.Description}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
