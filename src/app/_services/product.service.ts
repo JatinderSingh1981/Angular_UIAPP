@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, catchError, retry } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { ProductResponse } from '../_response/productResponse';
-import { ProductListResponse } from '../_response/productListResponse';
+import { ProductResponse, ProductListResponse } from '../_response';
+import { ProductMaster } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -23,20 +23,26 @@ export class ProductService {
 
   getProduct(id: number) {
     return this.http.get<ProductResponse>(`${this.baseUrl}/getproductbyid` + '/' + id)
-    .pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
   }
 
-  postTodo(product: ProductResponse) {
+  addProduct(product: ProductMaster) {
     return this.http.post<ProductResponse>(`${this.baseUrl}`, product)
-    .pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
   }
-
+  editProduct(product: ProductMaster) {
+    return this.http.put<ProductResponse>(`${this.baseUrl}` + '/' + product.productMasterId, product)
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

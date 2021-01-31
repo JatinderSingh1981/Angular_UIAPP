@@ -9,15 +9,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './alert/alert.component';
 import { ProductList } from './Products/productlist/productlist.component';
-import { ProductDetailComponent } from './Products/productDetail/product-detail.component';
 import { Product } from './Products/product/product.component';
+
+import { CustomMinDirective } from '../shared/customvalidators/custom-min-validator.directive';
+import { CustomMaxDirective } from '../shared/customvalidators/custom-max-validator.directive';
 
 @NgModule({
   declarations: [
+    CustomMinDirective,
+    CustomMaxDirective,
     AppComponent,
     AlertComponent,
     ProductList,
-    ProductDetailComponent,
     Product
   ],
   imports: [

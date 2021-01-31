@@ -11,8 +11,8 @@ export class AlertComponent implements OnInit, OnDestroy {
     @Input() fade = true;
 
     alerts: Alert[] = [];
-    alertSubscription: Subscription | undefined;
-    routeSubscription: Subscription | undefined;
+    alertSubscription: Subscription;
+    routeSubscription: Subscription;
 
     constructor(private router: Router, private alertService: AlertService) { }
 
@@ -49,10 +49,8 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // unsubscribe to avoid memory leaks
-        if (this.alertSubscription)
-            this.alertSubscription.unsubscribe();
-        if (this.routeSubscription)
-            this.routeSubscription.unsubscribe();
+        this.alertSubscription.unsubscribe();
+        this.routeSubscription.unsubscribe();
     }
 
     removeAlert(alert: Alert) {
@@ -62,10 +60,11 @@ export class AlertComponent implements OnInit, OnDestroy {
         if (this.fade) {
             // fade out alert
             if (this.alerts && alert) {
-                var alertvalue = this.alerts.find(x => x === alert);
-                if (alertvalue?.fade)
-                    alertvalue.fade = true;
+                var alertFound = this.alerts.find(x => x === alert);//.fade = true;
+                if (alertFound)
+                    alertFound.fade = true;
             }
+
             // remove alert after faded out
             setTimeout(() => {
                 this.alerts = this.alerts.filter(x => x !== alert);
@@ -77,24 +76,31 @@ export class AlertComponent implements OnInit, OnDestroy {
     }
 
     cssClass(alert: Alert) {
-        if (!alert) return;
+        const classes = [];
+        if (alert) {
+            classes.push('alert');
+            classes.push('alert-dismissable');
+            classes.push('mt-4');
+            classes.push('container');
+            // = ['alert', 'alert-dismissable', 'mt-4', 'container'];
 
-        const classes = ['alert', 'alert-dismissable', 'mt-4', 'container'];
-
-        const alertTypeClass = {
-            [AlertType.Success]: 'alert alert-success',
-            [AlertType.Error]: 'alert alert-danger',
-            [AlertType.Info]: 'alert alert-info',
-            [AlertType.Warning]: 'alert alert-warning'
-        }
-
-        if (alert && alert?.type)
+            const alertTypeClass = {
+                [AlertType.Success]: 'alert alert-success',
+                [AlertType.Error]: 'alert alert-danger',
+                [AlertType.Info]: 'alert alert-info',
+                [AlertType.Warning]: 'alert alert-warning'
+            }
+            if (!alert.type) {
+                alert.type = AlertType.Info;
+            }
             classes.push(alertTypeClass[alert.type]);
 
-        if (alert.fade) {
-            classes.push('fade');
-        }
+            if (alert.fade) {
+                classes.push('fade');
+            }
 
+            
+        }
         return classes.join(' ');
     }
 }

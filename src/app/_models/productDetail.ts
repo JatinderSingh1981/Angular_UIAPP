@@ -6,7 +6,7 @@ export interface ProductDetail {
     lookupPropertyValue: string,
     propertyTypeId: number,
     propertyType: string,
-    lookUpSourceId: number,
+    lookUpSourceId?: number,
     lookUpSource: string
   }
   

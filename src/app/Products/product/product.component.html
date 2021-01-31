@@ -1,53 +1,208 @@
-<div *ngIf="product" class="row my-0 mx-0">
-    <div class="col-lg-2 font-weight-bold">
-        Product Type
+<alert></alert>
+<div *ngIf="product">
+    <div class="col-lg-12" *ngIf="viewBackButton">
+        
+        <h5 class="card-header">
+            <button [routerLink]="['']" class="btn btn-primary">
+                Back
+            </button>
+            Product Details</h5>
     </div>
-    <div class="col-lg-10">
-        {{product.computerType}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
-        Processor
-    </div>
-    <div class="col-lg-10">
-        {{product.processor}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
-        Brand
-    </div>
-    <div class="col-lg-10">
-        {{product.brand}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
-        Number of Ports
-    </div>
-    <div class="col-lg-10">
-        {{product.usbPorts}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
-        Ram Slots
-    </div>
-    <div class="col-lg-10">
-        {{product.ramSlots}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
-        Quantity
-    </div>
-    <div class="col-lg-10">
-        {{product.quantity}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
-        Description
-    </div>
-    <div class="col-lg-10">
-        {{product.description}}
-    </div>
-    <div class="col-lg-2 font-weight-bold">
+    <!-- [formGroup]="propertyForm" -->
+    <form #propNgForm="ngForm" name="form" (ngSubmit)="onSubmit()" class="row my-0 mx-0">
 
-    </div>
-    <div class="col-lg-10">
-        <button *ngIf="viewDetails" [routerLink]="['details', product.productMasterId]" class="btn btn-primary">
-            View Details
-        </button>
-    </div>
+        <div class="col-lg-2 font-weight-bold">
+            Product Type
+        </div>
+        <div class="col-lg-10">
+            <div *ngIf="!isEditing">
+                {{product.computerType}}
+            </div>
+            <div *ngIf="isEditing">
+                <select name="cType" #cType="ngModel" [(ngModel)]="product.computerTypeId" class="form-control"
+                    [ngClass]="{ 'is-invalid': cType.errors && (cType.touched || cType.dirty) }">
+                    <option [ngValue]="-1" disabled>Select Product Type</option>
+                    <option [ngValue]="item.id" *ngFor="let item of productTypeList">{{item.name}}</option>
+                </select>
+                <div *ngIf="cType.errors && (cType.touched || cType.dirty)" class="invalid-feedback">
+                    <div *ngIf="cType.errors.required">Product Type is required</div>
+                </div>
 
+
+            </div>
+        </div>
+        <div class="col-lg-2 font-weight-bold">
+            Processor
+        </div>
+        <div class="col-lg-10">
+            <div *ngIf="!isEditing">
+                {{product.processor}}
+            </div>
+            <div *ngIf="isEditing">
+                <!-- <input type="text" required maxlength="80" name="proc" #proc="ngModel" [(ngModel)]="product.processor"
+                    class="form-control" [ngClass]="{ 'is-invalid': proc.errors && (proc.touched || proc.dirty) }" /> -->
+
+                <select name="proc" #proc="ngModel" [(ngModel)]="product.processorId" class="form-control"
+                    [ngClass]="{ 'is-invalid': proc.errors && (proc.touched || proc.dirty) }">
+                    <option [ngValue]="-1" disabled>Select Processor Type</option>
+                    <option [ngValue]="item.id" *ngFor="let item of processorTypeList">{{item.name}}</option>
+                </select>
+                <div *ngIf="proc.errors && (proc.touched || proc.dirty)" class="invalid-feedback">
+                    <div *ngIf="proc.errors.required">Processor is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 font-weight-bold">
+            Brand
+        </div>
+        <div class="col-lg-10">
+            <div *ngIf="!isEditing">
+                {{product.brand}}
+            </div>
+            <div *ngIf="isEditing">
+                <select name="brand" #brand="ngModel" [(ngModel)]="product.brandId" class="form-control"
+                    [ngClass]="{ 'is-invalid': brand.errors && (brand.touched || brand.dirty) }">
+                    <option [ngValue]="-1" disabled>Select Brand</option>
+                    <option [ngValue]="item.id" *ngFor="let item of brandList">{{item.name}}</option>
+                </select>
+                <div *ngIf="brand.errors && (brand.touched || brand.dirty)" class="invalid-feedback">
+                    <div *ngIf="brand.errors.required">Processor is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 font-weight-bold">
+            Number of Ports
+        </div>
+        <div class="col-lg-10">
+            <div *ngIf="!isEditing">
+                {{product.usbPorts}}
+            </div>
+            <div *ngIf="isEditing">
+                <input customMin="1" customMax="3" type="number" required maxlength="1" name="usbPorts"
+                    #usbPorts="ngModel" [(ngModel)]="product.usbPorts" class="form-control"
+                    [ngClass]="{ 'is-invalid': usbPorts.errors && (usbPorts.touched || usbPorts.dirty) }" />
+                <div *ngIf="usbPorts.errors && (usbPorts.touched || usbPorts.dirty)" class="invalid-feedback">
+                    <div *ngIf="usbPorts.errors.required">USB Port is required</div>
+                    <div *ngIf="usbPorts.errors.pattern">Enter Numeric value only</div>
+                    <div *ngIf="usbPorts.errors?.customMin || usbPorts.errors?.customMax">
+                        Enter value between 1 and 3
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 font-weight-bold">
+            Ram Slots
+        </div>
+        <div class="col-lg-10">
+
+            <div *ngIf="!isEditing">
+                {{product.ramSlots}}
+            </div>
+            <div *ngIf="isEditing">
+                <input customMin="1" customMax="5" type="number" required maxlength="1" name="ramSlots"
+                    #ramSlots="ngModel" [(ngModel)]="product.ramSlots" class="form-control"
+                    [ngClass]="{ 'is-invalid': ramSlots.errors && (ramSlots.touched || ramSlots.dirty) }" />
+                <div *ngIf="ramSlots.errors && (ramSlots.touched || ramSlots.dirty)" class="invalid-feedback">
+                    <div *ngIf="ramSlots.errors.required">Ram Slot is required</div>
+                    <div *ngIf="ramSlots.errors.pattern">Enter Numeric value only</div>
+                    <div *ngIf="ramSlots.errors?.customMin || ramSlots.errors?.customMax">
+                        Enter value between 1 and 5
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 font-weight-bold">
+            Quantity
+        </div>
+        <div class="col-lg-10">
+
+            <div *ngIf="!isEditing">
+                {{product.quantity}}
+            </div>
+            <div *ngIf="isEditing">
+                <input customMin="1" customMax="100" type="number" required maxlength="3" name="qty" #qty="ngModel"
+                    [(ngModel)]="product.quantity" class="form-control"
+                    [ngClass]="{ 'is-invalid': qty.errors && (qty.touched || qty.dirty) }" />
+                <div *ngIf="qty.errors && (qty.touched || qty.dirty)" class="invalid-feedback">
+                    <div *ngIf="qty.errors.required">Quantity is required</div>
+                    <div *ngIf="qty.errors.pattern">Enter Numeric value only</div>
+                    <div *ngIf="qty.errors?.customMin || qty.errors?.customMax">
+                        Enter value between 1 and 100
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 font-weight-bold">
+            Description
+        </div>
+        <div class="col-lg-10">
+            <div *ngIf="!isEditing">
+                {{product.description}}
+            </div>
+            <div *ngIf="isEditing">
+                <input type="text" required maxlength="80" name="desc" #desc="ngModel" [(ngModel)]="product.description"
+                    class="form-control" [ngClass]="{ 'is-invalid': desc.errors && (desc.touched || desc.dirty) }" />
+                <div *ngIf="desc.errors && (desc.touched || desc.dirty)" class="invalid-feedback">
+                    <div *ngIf="desc.errors.required">Quantity is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+        <div class="col-lg-10">
+            <button *ngIf="viewDetailButton" [routerLink]="['details', product.productMasterId]"
+                class="btn btn-primary">
+                View Details
+            </button>
+        </div>
+
+        <table class="table table-borderless" *ngIf="viewDetails">
+            <tr *ngFor="let prod of product.productDetails; let i=index" class="row my-0 mx-0 px-0 py-0">
+                <td class="col-lg-2 my-0 mx-0 px-3 py-0 font-weight-bold">
+                    <div *ngIf="!isEditing">
+                        {{prod.propertyName}}
+                    </div>
+                    <div *ngIf="isEditing">
+                        <input type="text" required maxlength="80" name="name{{i}}" #name="ngModel"
+                            [(ngModel)]="prod.propertyName" class="form-control"
+                            [ngClass]="{ 'is-invalid': name.errors && (name.touched || name.dirty) }" />
+                        <div *ngIf="name.errors && (name.touched || name.dirty)" class="invalid-feedback">
+                            <div *ngIf="name.errors.required">Property Name is required</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="col-lg-10 my-0 mx-0 px-3 py-0">
+                    <div *ngIf="!isEditing">
+                        {{prod.propertyValue}}
+                        <!-- {{getPropertyValue(prod)}} -->
+                    </div>
+                    <div *ngIf="isEditing">
+                        <input type="text" required maxlength="80" name="propValue{{i}}" #propValue="ngModel"
+                            [(ngModel)]="prod.propertyValue" class="form-control"
+                            [ngClass]="{ 'is-invalid': propValue.errors && (propValue.touched || propValue.dirty) }" />
+                        <div *ngIf="propValue.errors && (propValue.touched || propValue.dirty)"
+                            class="invalid-feedback">
+                            <div *ngIf="propValue.errors.required">Property Value is required</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+        <div class="col-lg-12" >
+            <h5 class="card-header" *ngIf="isEditing && viewDetails">
+                
+                <button (click)="addPropertyClicked()" class="btn btn-primary mr-1"
+                    [disabled]="propNgForm.form.invalid">
+                    Add
+                </button>
+                <button class="btn btn-primary mr-1" [disabled]="propNgForm.form.invalid">Save</button>
+            </h5>
+            <h5 class="card-header" *ngIf="!isEditing && viewDetails">
+                <button class="btn btn-primary mr-1"(click)="editClicked()">Edit</button>
+            </h5>
+        </div>
+        
+    </form>
 </div>
