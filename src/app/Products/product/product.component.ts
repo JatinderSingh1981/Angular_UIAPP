@@ -24,7 +24,7 @@ export class Product implements OnInit {
     viewBackButton: boolean = false;
 
     options = {
-        autoClose: false,
+        autoClose: true,
         keepAfterRouteChange: false
     };
 
@@ -38,6 +38,13 @@ export class Product implements OnInit {
     set showDetailButton(show: boolean) {
         this.viewDetailButton = show;
         this.showDetails();
+    }
+
+    showDetails() {
+        this.viewDetails = !this.viewDetailButton;
+    }
+    setIsEditing(val: boolean) {
+        this.isEditing = val;
     }
     showAlertMessage(showSuccessMessage: boolean, message: string) {
         if (showSuccessMessage)
@@ -78,17 +85,16 @@ export class Product implements OnInit {
                 //this.getProduct(id);
                 this.showDetailButton = false;
                 this.viewBackButton = true;
-                this.isEditing = false;
+                this.setIsEditing(false);
             }
         });
     }
 
-    showDetails() {
-        this.viewDetails = !this.viewDetailButton;
-    }
+    
     editClicked() {
-        this.isEditing = true;
+        this.setIsEditing(true);
     }
+    
     addPropertyClicked() {
         if (this.product) {
             var productDetail: ProductDetail = {
@@ -118,6 +124,7 @@ export class Product implements OnInit {
                 .subscribe((result) => {
                     this.product = result.product;
                     this.showAlertMessage(result.isSuccess, result.message);
+                    this.setIsEditing(!result.isSuccess); 
                 });
         }
     }
